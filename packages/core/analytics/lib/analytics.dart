@@ -4,17 +4,17 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class AnalyticsProtocol {
+abstract class Analytics {
   logEvent(String name, Map<String, Object> parameters);
   setUserProperties(String name, Map<String, Object> parameters);
   screenView(String screenName);
 }
 
-class Analytics implements AnalyticsProtocol {
-  Analytics._(this._analyticsDependencyProvider);
+class AnalyticsImpl implements Analytics {
+  AnalyticsImpl._(this._analyticsDependencyProvider);
 
-  factory Analytics({AnalyticsDependencyProvider? dependencyProvider}) {
-    return Analytics._(dependencyProvider);
+  factory AnalyticsImpl({AnalyticsDependencyProvider? dependencyProvider}) {
+    return AnalyticsImpl._(dependencyProvider);
   }
 
   AnalyticsDependencyProvider? _analyticsDependencyProvider;

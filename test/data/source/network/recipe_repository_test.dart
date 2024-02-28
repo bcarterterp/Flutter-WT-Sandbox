@@ -20,7 +20,7 @@ void main() {
   group('RecipeRepository Unit Tests', () {
     setUp(() {
       networkingDependencyProvider = MockNetworkingDependencyProvider();
-      network = Networking(dependencyProvider: networkingDependencyProvider);
+      network = NetworkingImpl(dependencyProvider: networkingDependencyProvider);
       flavorRepo = MockFlavorRepository();
       when(flavorRepo.getBaseUrlHost()).thenAnswer((realInvocation) => "");
       recipeRepository =

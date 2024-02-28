@@ -7,20 +7,20 @@ import 'package:authentication/login/presentation/view/login_screen.dart';
 import 'package:authentication/login/presentation/viewmodel/login_screen_viewmodel.dart';
 import 'package:flutter/material.dart';
 
-abstract class AuthenticationProtocol {
-  Widget startLoginFlow(void Function(bool) completion);
+abstract class Authentication {
+  LoginScreen startLoginFlow(void Function(bool) completion);
   Future<void> logout();
   bool isLoggedIn();
 }
 
-class Authentication implements AuthenticationProtocol {
-  Authentication._(this.storageService);
+class AuthenticationImpl implements Authentication {
+  AuthenticationImpl._(this.storageService);
 
   SecureStorageImpl storageService;
 
-  factory Authentication(
+  factory AuthenticationImpl(
       {AuthenticationDependencyProvider? dependencyProvider}) {
-    return Authentication._(
+    return AuthenticationImpl._(
         dependencyProvider?.secureStorage() ?? SecureStorageImpl());
   }
 

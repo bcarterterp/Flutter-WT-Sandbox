@@ -7,7 +7,7 @@ class AnalyticsRepositoryImpl extends AnalyticsRepository {
   });
 
   /// List of analytics platforms to send events to.
-  final AnalyticsProtocol analytics;
+  final Analytics analytics;
 
   @override
   void logEvent(String name, Map<String, Object> parameters) {

@@ -31,7 +31,7 @@ void main() {
     setUp(() {
       mockAuthenticationDependencyProvider =
           MockAuthenticationDependencyProvider();
-      final auth = Authentication(
+      final auth = AuthenticationImpl(
           dependencyProvider: mockAuthenticationDependencyProvider);
       final loginScreen = auth.startLoginFlow((p0) {});
       app = MaterialApp(home: loginScreen);
@@ -68,7 +68,7 @@ void main() {
       testWidgets(
           'Given LoginScreen is initial state, when user tries to click login button with no password, then empty password error should be present.',
           (WidgetTester tester) async {
-        final auth = Authentication();
+        final auth = AuthenticationImpl();
         final loginScreen = auth.startLoginFlow((p0) {});
         final app = MaterialApp(home: loginScreen);
 
@@ -100,7 +100,7 @@ void main() {
           'Given LoginScreen is initial state, when user enters incorrect email/password and clicks login button, then both email and password error should be present.',
           (WidgetTester tester) async {
         // Causes test to wait for app to finish launch before testing
-        final auth = Authentication();
+        final auth = AuthenticationImpl();
         final loginScreen = auth.startLoginFlow((p0) {});
         final app = MaterialApp(home: loginScreen);
 

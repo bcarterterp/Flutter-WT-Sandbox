@@ -10,9 +10,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:networking/networking.dart';
 
 abstract class AppRootDependencyProvider {
-  AuthenticationProtocol authentication();
-  NetworkingProtocol network();
-  AnalyticsProtocol analytics();
+  Authentication authentication();
+  Networking network();
+  Analytics analytics();
 }
 
 class AppRoot extends StatelessWidget {
@@ -25,9 +25,9 @@ class AppRoot extends StatelessWidget {
 
   factory AppRoot({AppRootDependencyProvider? dependencyProvider}) {
     final authentication =
-        dependencyProvider?.authentication() ?? Authentication();
-    final network = dependencyProvider?.network() ?? Networking();
-    final analytics = dependencyProvider?.analytics() ?? Analytics();
+        dependencyProvider?.authentication() ?? AuthenticationImpl();
+    final network = dependencyProvider?.network() ?? NetworkingImpl();
+    final analytics = dependencyProvider?.analytics() ?? AnalyticsImpl();
 
     final authRepository = AuthRepositoryImpl(authentication: authentication);
     final analyticsRepository = AnalyticsRepositoryImpl(analytics: analytics);
@@ -42,19 +42,12 @@ class AppRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: flavorRepository.getAppTitle(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      theme: theme.toThemeData(),
-      darkTheme: theme.toThemeDataDark(),
-      home: Navigator(
-        onGenerateRoute: (settings) {
-          return MaterialPageRoute(
-            builder: (context) => appRouter.initialScreen(context),
-          );
-        },
-      ),
-    );
+    return MaterialApp.router(
+        title: flavorRepository.getAppTitle(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        theme: theme.toThemeData(),
+        darkTheme: theme.toThemeDataDark(),
+        routerConfig: appRouter.buildRouterConfig());
   }
 }
