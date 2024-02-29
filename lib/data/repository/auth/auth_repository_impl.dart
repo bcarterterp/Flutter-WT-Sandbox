@@ -3,7 +3,7 @@ import 'package:flap_app/data/repository/auth/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final AuthenticationProtocol authentication;
+  final Authentication authentication;
 
   AuthRepositoryImpl({required this.authentication});
 

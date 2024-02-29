@@ -12,8 +12,8 @@ void main() {
       final mockDependencyProvider = MockNetworkingDependencyProvider();
       (mockDependencyProvider.client() as MockDio).setResponse(mockResponse);
 
-      Networking network =
-          Networking(dependencyProvider: mockDependencyProvider);
+      NetworkingImpl network =
+          NetworkingImpl(dependencyProvider: mockDependencyProvider);
 
       final response = await network.get('test.com');
       expect(response, mockResponse);

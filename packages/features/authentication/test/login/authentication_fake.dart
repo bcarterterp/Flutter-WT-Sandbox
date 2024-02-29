@@ -8,9 +8,9 @@ import '../../lib/mock/mock_secure_storage.dart';
 import '../usecase/log_in_usecase_fake.dart';
 import 'viewmodel/login_screen_viewmodel_fake.dart';
 
-class AuthenticationFake implements AuthenticationProtocol {
+class AuthenticationFake implements Authentication {
   @override
-  Widget startLoginFlow(void Function(bool p1) completion) {
+  LoginScreen startLoginFlow(void Function(bool p1) completion) {
     final loginUseCaseFake = LoginUseCaseFake();
     final secureStorageFake = MockSecureStorage();
 

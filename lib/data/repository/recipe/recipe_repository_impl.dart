@@ -7,7 +7,7 @@ import 'package:flap_app/util/environment_variables/env.dart';
 import 'package:networking/networking.dart';
 
 class RecipeRepositoryImpl implements RecipeRepository {
-  final NetworkingProtocol network;
+  final Networking network;
   final FlavorRepository flavorRepo;
   late final Uri spoonacularUri;
 

@@ -7,7 +7,7 @@ void main() {
     test('Given the analytics log event is called, then fire base log event should also be called', () async {
       final mockAnalyticsDependencyProvider = MockAnalyticsDependencyProvider();
       final firebaseAnalytics =
-          Analytics(dependencyProvider: mockAnalyticsDependencyProvider);
+          AnalyticsImpl(dependencyProvider: mockAnalyticsDependencyProvider);
       await firebaseAnalytics.logEvent("test", {});
       expect(mockAnalyticsDependencyProvider.mockFirebaseAnalytics.nameTest,
           "test");

@@ -9,7 +9,7 @@ void main() {
     setUp(() {
       final mockDependencyProvider = MockAuthenticationDependencyProvider();
       authentication =
-          Authentication(dependencyProvider: mockDependencyProvider);
+          AuthenticationImpl(dependencyProvider: mockDependencyProvider);
     });
 
     test(
@@ -26,7 +26,7 @@ void main() {
       () async {
         final mockDependencyProvider = MockAuthenticationDependencyProvider();
         final authentication =
-            Authentication(dependencyProvider: mockDependencyProvider);
+            AuthenticationImpl(dependencyProvider: mockDependencyProvider);
         await authentication.logout();
         expect(mockDependencyProvider.mockSecureStorage.didCallDeleteJwt, true);
       },
@@ -37,7 +37,7 @@ void main() {
       () async {
         final mockDependencyProvider = MockAuthenticationDependencyProvider();
         final authentication =
-            Authentication(dependencyProvider: mockDependencyProvider);
+            AuthenticationImpl(dependencyProvider: mockDependencyProvider);
         final responseNoToken = authentication.isLoggedIn();
         expect(responseNoToken, false);
         mockDependencyProvider.mockSecureStorage.token = "test";

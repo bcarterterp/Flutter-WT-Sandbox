@@ -5,14 +5,11 @@ import 'package:flap_app/domain/repository/flavor/flavor_repository_impl.dart';
 import 'package:flap_app/presentation/screens/home/view/home_screen.dart';
 import 'package:flap_app/presentation/screens/home/viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:networking/networking.dart';
 
-abstract class AppRouterProtocol {
-  Widget initialScreen(BuildContext context);
-}
-
-class AppRouter extends AppRouterProtocol {
-  final NetworkingProtocol network;
+class AppRouter {
+  final Networking network;
   final AuthRepository authRepository;
   final AnalyticsRepository analyticsRepository;
 
@@ -21,19 +18,12 @@ class AppRouter extends AppRouterProtocol {
       required this.authRepository,
       required this.analyticsRepository});
 
-  @override
   Widget initialScreen(BuildContext context) {
     if (authRepository.isLoggedIn() == true) {
       return homeScreen();
     } else {
       return authScreen(context);
     }
-  }
-
-  void pushHomeScreen(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => homeScreen()),
-    );
   }
 
   Widget homeScreen() {
@@ -50,11 +40,26 @@ class AppRouter extends AppRouterProtocol {
       // Handle the completion here
       if (success) {
         debugPrint('Login successful');
-        pushHomeScreen(context);
+        context.go('/home');
       } else {
         // handle login error
         debugPrint('Login failed');
       }
     });
+  }
+
+  GoRouter buildRouterConfig() {
+    return GoRouter(initialLocation: '/', routes: [
+      GoRoute(
+          path: '/',
+          builder: (BuildContext context, GoRouterState state) {
+            return initialScreen(context);
+          }),
+      GoRoute(
+          path: '/home',
+          builder: (BuildContext context, GoRouterState state) {
+            return homeScreen();
+          })
+    ]);
   }
 }
